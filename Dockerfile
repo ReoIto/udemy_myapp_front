@@ -1,4 +1,3 @@
-# FROM node:14.4.0-alpine 使用不可
 FROM node:16.18.1-alpine
 
 ARG WORKDIR
@@ -10,7 +9,7 @@ ENV HOME=/${WORKDIR} \
     # HOSTを指定することでNuxt.jsを確認できる
     HOST=0.0.0.0 \
     API_URL=${API_URL}
-    
+
 WORKDIR ${HOME}
 
 
