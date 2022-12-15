@@ -1,9 +1,34 @@
-<template lang="pug">
-div.layout__header Test
+<template>
+  <div>
+    <button
+      type="button"
+      name="button"
+      @click="getMsg"
+    >
+      TEST
+    </button>
+    <div
+      v-for="(msg, i) in msgs"
+      :key="i"
+    >
+      {{ msg }}
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  data () {
+    return {
+      msgs: []
+    }
+  },
+  methods: {
+    getMsg () {
+      this.$axios.$get('/api/v1/hello')
+        .then(res => this.msgs.push(res))
+    }
+  }
 }
 </script>
