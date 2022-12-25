@@ -10,9 +10,10 @@ module.exports = {
   },
   extends: ['@nuxtjs', 'plugin:nuxt/recommended'],
   plugins: [],
-  // add your custom rules here
   rules: {
     'space-before-function-paren': ['error', 'never'],
-    'arrow-parens': ['error', 'as-needed']
+    'arrow-parens': ['error', 'as-needed'],
+    // Avoid error of "{valiable} is better written in dot notation  dot-notation"
+    sub: 'off'
   }
 }

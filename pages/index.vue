@@ -1,10 +1,11 @@
 <template>
   <v-container fluid>
+    <NuxtLink to="/login"> ログイン画面 </NuxtLink>
     <v-card flat tile color="transparent">
       <v-card-title> Usersテーブルの取得 </v-card-title>
       <v-card-text>
         <v-simple-table dense>
-          <template v-if="users.length" v-slot:default>
+          <template v-if="users.length" #default>
             <thead>
               <tr>
                 <th v-for="(key, i) in userKeys" :key="`key-${i}`">
