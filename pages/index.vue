@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <NuxtLink to="/login"> ログイン画面 </NuxtLink>
+    <v-btn elevation="2" small color="primary" @click="test">TEST</v-btn>
     <v-card flat tile color="transparent">
       <v-card-title> Usersテーブルの取得 </v-card-title>
       <v-card-text>
@@ -54,7 +55,7 @@ export default {
   async asyncData({ $axios }) {
     let users = []
     await $axios.$get('/api/v1/users').then(res => (users = res))
-    const userKeys = Object.keys(users[0] || {}) // 追加
+    const userKeys = Object.keys(users[0] || {})
     return { users, userKeys }
   },
   data() {
@@ -77,6 +78,14 @@ export default {
         })
         return dateTimeFormat.format(new Date(date))
       }
+    }
+  },
+  methods: {
+    test() {
+      console.log(`process.env.NODE_ENV: ${process.env.NODE_ENV}`)
+      console.log(`process.env.FRONT_BASE_URL: ${process.env.FRONT_BASE_URL}`)
+      console.log(`process.env.NUXT_ENV_NODE_ENV: ${process.env.NUXT_ENV_NODE_ENV}`)
+      console.log(`process.env.NUXT_ENV_FRONT_BASE_URL: ${process.env.NUXT_ENV_FRONT_BASE_URL}`)
     }
   }
 }
