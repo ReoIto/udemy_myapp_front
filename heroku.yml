@@ -7,6 +7,6 @@ build:
     web: Dockerfile
   config:
     WORKDIR: app
-    API_URL: "https://visit-okinawa-api.herokuapp.com"
+    API_URL: 'https://visit-okinawa-api.herokuapp.com'
 run:
   web: yarn run start
