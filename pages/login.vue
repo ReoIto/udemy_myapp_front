@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="login">
     <h3>ログイン画面</h3>
     <div v-if="client === ''">
       <div>
@@ -13,7 +13,7 @@
         <label for="password">password</label>
         <input id="password" v-model="password" type="password" />
         <br />
-        <button @click="signup">新規登録ボタン</button>
+        <v-btn elevation="2" small color="primary" @click="signup">Sign Up</v-btn>
       </div>
       <div>
         <h1>SignIn</h1>
@@ -23,25 +23,30 @@
         <label for="password">password</label>
         <input id="password" v-model="password" type="password" />
         <br />
-        <button @click="signin">SignInボタン</button>
+        <v-btn elevation="2" small color="primary" @click="signin">Sign In</v-btn>
       </div>
       <div>
-        <p>ユーザー情報がないか、ログインしてない</p>
+        <h1>Forgot Password?</h1>
+        <label for="email">email</label>
+        <input id="email" v-model="email" type="email" />
+        <br />
+        <v-btn elevation="2" small color="error" @click="forgotPassword">Reset Password</v-btn>
+      </div>
+      <div>
+        <p>please create a new account or sign in with your account's email and password</p>
       </div>
     </div>
     <div v-else>
-      <h1><button @click="signout">SignOut</button></h1>
-      <div>
-        <p>
-          ログイン中<span>{{ this.name }}</span>
-        </p>
-      </div>
+      <p>
+        ログイン中<span>{{ this.name }}</span>
+      </p>
+      <h1>Sign Out</h1>
+      <v-btn elevation="2" small color="primary" @click="signout">Sign Out</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
 export default {
   data() {
     return {
@@ -71,8 +76,6 @@ export default {
         })
     },
     signin() {
-      console.log(this.email)
-      console.log(this.password)
       this.$axios
         .post('/api/v1/auth/sign_in', {
           email: this.email,
@@ -88,12 +91,8 @@ export default {
         })
     },
     signout() {
-      console.log(this.uid)
-      console.log(this.access_token)
-      console.log(this.client)
       this.$axios
         .delete('/api/v1/auth/sign_out', {
-          test: { test: 'test' },
           headers: {
             uid: this.uid,
             'access-token': this.access_token,
@@ -108,12 +107,31 @@ export default {
           localStorage.removeItem('access-token')
           localStorage.removeItem('client')
         })
+    },
+    forgotPassword() {
+      // TODO: Use env variable.
+      const dev = 'http://localhost:8080'
+      const baseUrl = process.env.FRONT_BASE_URL || dev
+
+      this.$axios
+        .$post('/api/v1/auth/password', {
+          email: this.email,
+          redirect_url: `${baseUrl}/reset_password`
+        })
+        .then(res => {
+          console.log(`Password reset mail has been sent to ${this.email}`)
+          console.log({ res })
+        })
+        .catch(e => {
+          console.log(`Failed to send password reset mail to ${this.email}`)
+          console.log({ e })
+        })
     }
   }
 }
 </script>
 <style>
-#app {
+#login {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
