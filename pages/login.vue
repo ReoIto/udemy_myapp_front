@@ -109,6 +109,7 @@ export default {
         })
     },
     forgotPassword() {
+      // TODO: Use env variable.
       const dev = 'http://localhost:8080'
       const baseUrl = process.env.FRONT_BASE_URL || dev
 
