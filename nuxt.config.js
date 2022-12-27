@@ -1,4 +1,11 @@
+const { NODE_ENV, FRONT_BASE_URL } = process.env
+
 export default {
+  env: {
+    NODE_ENV,
+    FRONT_BASE_URL
+  },
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
